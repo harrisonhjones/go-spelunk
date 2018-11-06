@@ -5,6 +5,7 @@ Explore the depths of Go structs (and also leave your mark).
 [![build status badge][travis-badge]][travis-url]
 [![go doc badge][go-doc-badge]][go-doc-url]
 [![go report card badge][go-reportcard-badge]][go-reportcard-url]
+[![code coverage badge](codecov-badge)](codecov-url)
 
 [travis-badge]: https://travis-ci.org/hharrisonhjones/go-spelunk.svg?branch=master
 [travis-url]: https://travis-ci.org/harrisonhjones/go-spelunk
@@ -12,6 +13,8 @@ Explore the depths of Go structs (and also leave your mark).
 [go-doc-url]: https://godoc.org/hhj.me/go/spelunk
 [go-reportcard-badge]: https://goreportcard.com/badge/hhj.me/go/spelunk
 [go-reportcard-url]: https://goreportcard.com/report/hhj.me/go/spelunk
+[codecov-badge]: https://codecov.io/gh/harrisonhjones/go-spelunk/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/harrisonhjones/go-spelunk
 
 ## Description
 
@@ -33,7 +36,6 @@ example := struct {
     Map    map[string]string `spelunk:"zero"`
     Slice  []string          `spelunk:"zero"`
     Array  [2]string         `spelunk:"zero"`
-    Func   func() error      `spelunk:"zero"`
 }{
     String: "string",
     Int:    1,
@@ -41,7 +43,6 @@ example := struct {
     Map:    map[string]string{"key": "value"},
     Slice:  []string{"foo", "bar"},
     Array:  [2]string{"baz", "qux"},
-    Func:   func() error { return nil },
 }
 
 fmt.Printf("%+v\n", example)
@@ -53,8 +54,8 @@ s1.Spelunk(&example)
 
 fmt.Printf("%+v\n", example)
 // Output:
-// {String:string Int:1 Float:1.2 Map:map[key:value] Slice:[foo bar] Array:[baz qux] Func:0x4ffbb0}
-// {String: Int:0 Float:0 Map:map[] Slice:[] Array:[ ] Func:<nil>}
+// {String:string Int:1 Float:1.2 Map:map[key:value] Slice:[foo bar] Array:[baz qux]}
+// {String: Int:0 Float:0 Map:map[] Slice:[] Array:[ ]}
 ```
 
 ## Bugs / Feature Requests
