@@ -126,6 +126,7 @@ func (p *Spelunker) spelunk(name string, v reflect.Value) error {
 
 var _ Handler = Zeroer
 
+// ErrCannotSet is returned by the Zeroer handler if a value cannot be zeroed.
 var ErrCannotSet = errors.New("cannot set")
 
 // Zeroer is a simple Handler which sets the value to its zero value.

@@ -59,5 +59,6 @@ fmt.Printf("%+v\n", example)
 
 ## Bugs / Feature Requests
 
-Open a issue or
+- [Open a issue](https://github.com/harrisonhjones/go-spelunk/issues/new)
+- For and [submit a pull request](https://github.com/harrisonhjones/go-spelunk/compare)
 
