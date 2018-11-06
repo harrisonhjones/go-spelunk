@@ -11,15 +11,15 @@ import (
 	"hhj.me/go/spelunk"
 )
 
-func ExampleSpelunker_Spelunk_zeroer() {
+func ExampleSpelunker_Spelunk_everyFieldHandler() {
 	example := struct {
-		String string            `spelunk:"zero"`
-		Int    int               `spelunk:"zero"`
-		Float  float64           `spelunk:"zero"`
-		Map    map[string]string `spelunk:"zero"`
-		Slice  []string          `spelunk:"zero"`
-		Array  [2]string         `spelunk:"zero"`
-		Func   func() error      `spelunk:"zero"`
+		String string
+		Int    int
+		Float  float64
+		Map    map[string]string
+		Slice  []string
+		Array  [2]string
+		Func   func() error
 	}{
 		String: "string",
 		Int:    1,
@@ -30,17 +30,50 @@ func ExampleSpelunker_Spelunk_zeroer() {
 		Func:   func() error { return nil },
 	}
 
+	s1 := spelunk.New()
+	s1.SetEveryFieldHandler(func(name, path, tagValue string, value reflect.Value) error {
+		fmt.Printf("%s: %s\n", path, value.String())
+		return nil
+	})
+	s1.Spelunk(struct{ Nested interface{} }{Nested: example})
+	// Output:
+	// Nested.String: string
+	// Nested.Int: <int Value>
+	// Nested.Float: <float64 Value>
+	// Nested.Map: <map[string]string Value>
+	// Nested.Slice: <[]string Value>
+	// Nested.Array: <[2]string Value>
+	// Nested.Func: <func() error Value>
+	// Nested: <interface {} Value>
+}
+
+func ExampleSpelunker_Spelunk_zeroer() {
+	example := struct {
+		String string            `spelunk:"zero"`
+		Int    int               `spelunk:"zero"`
+		Float  float64           `spelunk:"zero"`
+		Map    map[string]string `spelunk:"zero"`
+		Slice  []string          `spelunk:"zero"`
+		Array  [2]string         `spelunk:"zero"`
+	}{
+		String: "string",
+		Int:    1,
+		Float:  1.2,
+		Map:    map[string]string{"key": "value"},
+		Slice:  []string{"foo", "bar"},
+		Array:  [2]string{"baz", "qux"},
+	}
+
 	fmt.Printf("%+v\n", example)
 
 	s1 := spelunk.New()
-
 	s1.SetHandler("zero", spelunk.Zeroer)
 	s1.Spelunk(&example)
 
 	fmt.Printf("%+v\n", example)
 	// Output:
-	// {String:string Int:1 Float:1.2 Map:map[key:value] Slice:[foo bar] Array:[baz qux] Func:0x4ffbb0}
-	// {String: Int:0 Float:0 Map:map[] Slice:[] Array:[ ] Func:<nil>}
+	// {String:string Int:1 Float:1.2 Map:map[key:value] Slice:[foo bar] Array:[baz qux]}
+	// {String: Int:0 Float:0 Map:map[] Slice:[] Array:[ ]}
 }
 
 func ExampleSpelunker_Spelunk() {

@@ -6,8 +6,8 @@ Explore the depths of Go structs (and also leave your mark).
 [![go doc badge][go-doc-badge]][go-doc-url]
 [![go report card badge][go-reportcard-badge]][go-reportcard-url]
 
-[travis-badge]: https://travis-ci.org/hhj.me/go/spelunk.svg?branch=master
-[travis-job]: https://travis-ci.org/hhj.me/go/spelunk
+[travis-badge]: https://travis-ci.org/hharrisonhjones/go-spelunk.svg?branch=master
+[travis-url]: https://travis-ci.org/harrisonhjones/go-spelunk
 [go-doc-badge]: https://godoc.org/hhj.me/go/spelunk?status.svg
 [go-doc-url]: https://godoc.org/hhj.me/go/spelunk
 [go-reportcard-badge]: https://goreportcard.com/badge/hhj.me/go/spelunk
@@ -60,5 +60,5 @@ fmt.Printf("%+v\n", example)
 ## Bugs / Feature Requests
 
 - [Open a issue](https://github.com/harrisonhjones/go-spelunk/issues/new)
-- For and [submit a pull request](https://github.com/harrisonhjones/go-spelunk/compare)
+- Fork and [submit a pull request](https://github.com/harrisonhjones/go-spelunk/compare)
 
