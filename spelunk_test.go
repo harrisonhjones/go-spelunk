@@ -1,4 +1,4 @@
-package spelunk_test
+package spelunk
 
 import (
 	"errors"
@@ -7,8 +7,6 @@ import (
 	"strconv"
 	"strings"
 	"testing"
-
-	"hhj.me/go/spelunk"
 )
 
 func ExampleSpelunker_Spelunk_everyFieldHandler() {
@@ -30,7 +28,7 @@ func ExampleSpelunker_Spelunk_everyFieldHandler() {
 		Func:   func() error { return nil },
 	}
 
-	s1 := spelunk.New()
+	s1 := New()
 	s1.SetEveryFieldHandler(func(name, path, tagValue string, value reflect.Value) error {
 		fmt.Printf("%s: %s\n", path, value.String())
 		return nil
@@ -66,8 +64,8 @@ func ExampleSpelunker_Spelunk_zeroer() {
 
 	fmt.Printf("%+v\n", example)
 
-	s1 := spelunk.New()
-	s1.SetHandler("zero", spelunk.Zeroer)
+	s1 := New()
+	s1.SetHandler("zero", Zeroer)
 	s1.Spelunk(&example)
 
 	fmt.Printf("%+v\n", example)
@@ -100,7 +98,7 @@ func ExampleSpelunker_Spelunk() {
 
 	fmt.Printf("%+v\n", person)
 
-	s1 := spelunk.New()
+	s1 := New()
 	s1.SetHandler("trim", func(name, path, tagValue string, value reflect.Value) error {
 		if !value.CanSet() || value.Kind() != reflect.String {
 			return errors.New("expected a settable string")
@@ -116,8 +114,8 @@ func ExampleSpelunker_Spelunk() {
 		value.SetString(strings.ToUpper(value.String()[:1]) + value.String()[1:])
 		return nil
 	})
-	s1.SetHandler("secret", spelunk.Zeroer)
-	s2 := spelunk.New()
+	s1.SetHandler("secret", Zeroer)
+	s2 := New()
 	s2.SetTag("spelunk2")
 	s2.SetHandler("min", func(name, path, tagValue string, value reflect.Value) error {
 		if !value.CanSet() || value.Kind() != reflect.Int {
@@ -371,13 +369,10 @@ func TestSpelunker_Spelunk(t *testing.T) {
 		t.Run(key, func(t *testing.T) {
 			t.Parallel()
 
-			// OnlyRun(t, key, "struct-every-field-handler-error")
-
-			p := spelunk.New()
+			p := New()
 			p.SetTag("tag")
 			stringHandlerInvokes := 0
 			p.SetHandler("string", func(name, path, tagVal string, f reflect.Value) error {
-				fmt.Println(path)
 				stringHandlerInvokes++
 				if f.Kind() == reflect.Ptr && !f.IsNil() {
 					f = f.Elem()
@@ -480,7 +475,7 @@ func TestZeroer(t *testing.T) {
 		t.Run(key, func(t *testing.T) {
 			t.Parallel()
 
-			if err := ErrorEqual(spelunk.Zeroer("", "", "", reflect.ValueOf(test.input)), test.err); err != nil {
+			if err := ErrorEqual(Zeroer("", "", "", reflect.ValueOf(test.input)), test.err); err != nil {
 				t.Errorf("error mismatch: %v", err)
 			}
 
