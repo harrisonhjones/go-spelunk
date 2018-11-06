@@ -5,7 +5,7 @@ Explore the depths of Go structs (and also leave your mark).
 [![build status badge][travis-badge]][travis-url]
 [![go doc badge][go-doc-badge]][go-doc-url]
 [![go report card badge][go-reportcard-badge]][go-reportcard-url]
-[![code coverage badge](codecov-badge)](codecov-url)
+[![code coverage badge](codecov-badge)][codecov-url]
 
 [travis-badge]: https://travis-ci.org/hharrisonhjones/go-spelunk.svg?branch=master
 [travis-url]: https://travis-ci.org/harrisonhjones/go-spelunk
