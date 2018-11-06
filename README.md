@@ -23,6 +23,10 @@ a configurable tag it calls registered handle functions to inspect, or
 even modify, the value. Use Spelunk to validate user input, sanitize
 sensitive data before logging or outputting to a user, etc.
 
+## Installation
+
+*go get hhj.me/go/spelunk*
+
 ## Examples
 
 A basic example is provided below. See the
